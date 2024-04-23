@@ -25,6 +25,18 @@ public void setCheckOut(boolean checkOut) {this.checkOut = checkOut;}
 public String getCheckOutTo() {return checkOutTo;}
 public void setCheckOutTo(String checkOutTo) {this.checkOutTo = checkOutTo;}
 
+public void checkOut(String name){
+ checkOut = true;
+ checkOutTo = name;
+    System.out.print("The book: " + title + " has been check out to: " + name);
+
+}
+public void checkIn(){
+        checkOut  = false;
+        checkOutTo = null;
+        System.out.print(title + " has been check in");
+
+}
 
 
 

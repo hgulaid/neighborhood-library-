@@ -13,13 +13,13 @@ public class Main {
 // create the array
         Books[]  book =  {
         new Books(1, "1242144244323", "The Great Gatsby", false, ""),
-        new Books(2, "9780061120084", "To Kill a Mockingbird", true, "John Doe"),
+        new Books(2, "9780061120084", "To Kill a Mockingbird", false, ""),
         new Books(3, "9780451524935", "1984", false, ""),
-        new Books(4, "9780316769488", "The Catcher in the Rye", true, "Jane Smith"),
+        new Books(4, "9780316769488", "The Catcher in the Rye", false, "Jane Smith"),
         new Books(5, "9780547928227", "The Hobbit", false, ""),
-        new Books(6, "9780451526342", "Animal Farm", true, "David Brown"),
+        new Books(6, "9780451526342", "Animal Farm", false, ""),
         new Books(7, "9780399501487", "Lord of the Flies", false, ""),
-        new Books(8, "9780060850524", "Brave New World", true, "Emily Johnson"),
+        new Books(8, "9780060850524", "Brave New World", false, ""),
         new Books(9, "9781451673319", "Fahrenheit 451", false, ""),
         new Books(10, "9780143039433", "The Grapes of Wrath", true, "Michael Wilson"),
         new Books(11, "9780140177398", "Of Mice and Men", false, ""),
@@ -59,7 +59,7 @@ public class Main {
 
             case 2:
                 // show checked out books here call below
-                listCheckedOutBooks(book);2
+                listCheckedOutBooks(book);
 
                 break;
 
@@ -82,7 +82,7 @@ public class Main {
         }
 
 
-    }
+        }
 
     }
 
@@ -91,11 +91,32 @@ public class Main {
         System.out.println("Here are all the available books");
         for (int i = 0; i < book.length; i++){
             if (!book[i].getCheckOut()){
+                System.out.println();
                 System.out.printf("%d,%s,%s,%b,%s\n", book[i].getBookId(), book[i].getBookIsbn(), book[i].getTitle(), book[i].getCheckOut(), book[i].getCheckOutTo());
             }
         }
+        // Helps with checking out a book
+        System.out.println();
+        System.out.println("Would you like to check in a book1?");
+        System.out.println("1 - Yes I would like to check out a book");
+        System.out.println("2 - Go back to home screen");
+        int choice = Integer.parseInt(userInput.nextLine());
+        if (choice == 1) {
+            System.out.println("What's the book ID number?");
+            int bookID = Integer.parseInt(userInput.nextLine());
+            System.out.println("What's your name");
+            String name = userInput.nextLine();
+            // for loop through all books
+            for (int i = 0; i < book.length; i++) {
+                if (book[i].getBookId() == bookID) {
+                    book[i].checkOut(name);
+                } else {
+                    System.out.print("Sorry that book is checked out by someone else.");
+                    break;
+                }
+            }
+        }
     }
-
     // This function helps with showing user books that are checkout
     public static void listCheckedOutBooks(Books[] book){
         System.out.println("Here are all of the books that are checked out currently");
@@ -104,8 +125,22 @@ public class Main {
                 System.out.printf("%d,%s,%s,%b,%s\n", book[i].getBookId(), book[i].getBookIsbn(), book[i].getTitle(), book[i].getCheckOut(), book[i].getCheckOutTo());
             }
         }
+        // Helps us with the process of checking in a book
+        System.out.println();
+        System.out.println("Would you like to check in a book?");
+        System.out.println("1 - Yes I would like to check in a book");
+        System.out.println("2 - Go back to the home screen");
+        int choice = Integer.parseInt(userInput.nextLine());
+        if (choice == 1){
+            System.out.println("What's the book ID number?");
+            int bookID = Integer.parseInt(userInput.nextLine());
+            // for loop through all books
+            for (int i = 0; i < book.length; i++ ){
+                if (!book[i].getCheckOut()){
+                    book[i].checkIn();
+                    break;
+                }
+            }
+        }
     }
-
-
-
 }
